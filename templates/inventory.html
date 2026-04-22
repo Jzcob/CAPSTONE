@@ -1,0 +1,36 @@
+{% extends 'layout.html' %}
+{% block content %}
+<div class="flex justify-between items-center mb-6">
+    <h1 class="text-3xl font-bold text-gray-800">Inventory Management</h1>
+    <a href="/inventory/add" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 shadow no-underline">+ Add New Product</a>
+</div>
+<div class="bg-white shadow-md rounded-lg overflow-hidden">
+    <table class="min-w-full">
+        <thead class="bg-gray-100 text-gray-600 uppercase text-xs">
+            <tr>
+                <th class="px-5 py-3 border-b">Product Name</th>
+                <th class="px-5 py-3 border-b">SKU</th>
+                <th class="px-5 py-3 border-b text-center">Stock</th>
+                <th class="px-5 py-3 border-b text-right">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in items %}
+            <tr class="hover:bg-gray-50">
+                <td class="px-5 py-4 border-b text-sm font-medium">{{ item.Name }}</td>
+                <td class="px-5 py-4 border-b text-sm text-gray-500">{{ item.SKU }}</td>
+                <td class="px-5 py-4 border-b text-sm text-center">
+                    <span class="px-2 py-1 rounded-full font-bold {{ 'bg-red-100 text-red-600' if item.QuantityOnHand <= item.ReorderLevel else 'bg-green-100 text-green-600' }}">
+                        {{ item.QuantityOnHand }}
+                    </span>
+                </td>
+                <td class="px-5 py-4 border-b text-right text-sm">
+                    <a href="/inventory/update/{{ item.InventoryID }}" class="text-blue-600 hover:underline mr-3">Update Stock</a>
+                    <a href="/inventory/remove/{{ item.InventoryID }}" class="text-red-600 hover:underline" onclick="return confirm('Delete item?')">Remove</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

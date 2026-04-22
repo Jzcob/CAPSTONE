@@ -1,0 +1,45 @@
+{% extends 'layout.html' %}
+{% block content %}
+<div class="flex justify-between items-center mb-6">
+    <h1 class="text-3xl font-bold text-gray-800 uppercase tracking-tight">
+        Module Explorer: <span class="text-blue-600">{{ table_name }}</span>
+    </h1>
+    <div class="flex gap-2">
+        <button onclick="window.location.reload()" class="bg-blue-50 text-blue-600 px-4 py-2 rounded border border-blue-200 hover:bg-blue-100">Refresh Data</button>
+        <button onclick="window.print()" class="bg-gray-800 text-white px-4 py-2 rounded shadow hover:bg-gray-900">Print Report</button>
+    </div>
+</div>
+
+<div class="bg-white shadow-xl rounded-xl overflow-hidden border border-gray-200">
+    <div class="overflow-x-auto">
+        <table class="min-w-full divide-y divide-gray-200">
+            <thead class="bg-gray-50">
+                <tr>
+                    {% for col in columns %}
+                    <th class="px-6 py-4 text-left text-xs font-black text-gray-500 uppercase tracking-widest border-r border-gray-200">
+                        {{ col }}
+                    </th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody class="bg-white divide-y divide-gray-200">
+                {% for row in rows %}
+                <tr class="hover:bg-blue-50 transition-colors duration-150">
+                    {% for col in columns %}
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600 border-r border-gray-100 font-mono">
+                        {{ row[col] }}
+                    </td>
+                    {% endfor %}
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="100%" class="px-6 py-20 text-center text-gray-400 italic">
+                        No records found in this database table.
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

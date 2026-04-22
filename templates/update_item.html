@@ -1,0 +1,10 @@
+{% extends 'layout.html' %}
+{% block content %}
+<div class="max-w-md mx-auto bg-white p-10 rounded-2xl shadow-2xl">
+    <h2 class="text-2xl font-bold mb-6 text-center">Adjust Stock: #{{ inv_id }}</h2>
+    <form action="/inventory/update/{{ inv_id }}" method="POST" class="space-y-6">
+        <input type="number" name="qty" placeholder="Enter New Quantity" required class="w-full p-4 bg-gray-50 rounded-xl text-center text-2xl font-bold">
+        <button type="submit" class="w-full bg-blue-600 text-white py-4 rounded-xl font-bold hover:bg-blue-700">Update Database</button>
+    </div>
+</div>
+{% endblock %}

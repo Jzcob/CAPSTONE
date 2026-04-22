@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Majikku IMS Control</title>
+    <style>
+        .custom-scroll::-webkit-scrollbar { width: 4px; }
+        .custom-scroll::-webkit-scrollbar-thumb { background: #4b5563; border-radius: 10px; }
+    </style>
+</head>
+<body class="bg-gray-100 flex h-screen overflow-hidden">
+
+    <div class="w-72 bg-[#1f2937] flex flex-col h-full shadow-2xl">
+        <div class="p-6 bg-[#111827] text-white font-black tracking-tighter text-2xl italic border-b border-gray-700">
+            MAJIKKU <span class="text-blue-500">IMS</span>
+        </div>
+        
+        <div class="flex-1 overflow-y-auto custom-scroll p-4 space-y-6">
+            <div>
+                <div class="text-blue-400 text-[10px] font-bold uppercase tracking-widest mb-2">Operational Apps</div>
+                <a href="/dashboard" class="block p-2 text-gray-300 hover:bg-blue-600 hover:text-white rounded transition">Dashboard</a>
+                <a href="/inventory" class="block p-2 text-gray-300 hover:bg-blue-600 hover:text-white rounded transition">Inventory CRUD</a>
+                <a href="/admin/users" class="block p-2 text-gray-300 hover:bg-blue-600 hover:text-white rounded transition">Staff Management</a>
+            </div>
+
+            <div>
+                <div class="text-gray-500 text-[10px] font-bold uppercase tracking-widest mb-2">1. Structure</div>
+                <a href="/view/Regions" class="block py-1 px-2 text-sm text-gray-400 hover:text-white">Regions</a>
+                <a href="/view/Stores" class="block py-1 px-2 text-sm text-gray-400 hover:text-white">Stores</a>
+                <a href="/view/Aisles" class="block py-1 px-2 text-sm text-gray-400 hover:text-white">Aisles & Layout</a>
+            </div>
+
+            <div>
+                <div class="text-gray-500 text-[10px] font-bold uppercase tracking-widest mb-2">2. Logistics</div>
+                <a href="/view/Vendors" class="block py-1 px-2 text-sm text-gray-400 hover:text-white">Vendors</a>
+                <a href="/view/PurchaseOrders" class="block py-1 px-2 text-sm text-gray-400 hover:text-white">Purchase Orders</a>
+                <a href="/view/Shipments" class="block py-1 px-2 text-sm text-gray-400 hover:text-white">Shipments</a>
+            </div>
+
+            <div>
+                <div class="text-gray-500 text-[10px] font-bold uppercase tracking-widest mb-2">3. Sales & Credit</div>
+                <a href="/view/Transactions" class="block py-1 px-2 text-sm text-gray-400 hover:text-white">Transactions</a>
+                <a href="/view/CreditAccounts" class="block py-1 px-2 text-sm text-gray-400 hover:text-white">Majikku Card Accounts</a>
+                <a href="/view/Returns" class="block py-1 px-2 text-sm text-gray-400 hover:text-white">Returns</a>
+            </div>
+
+            <div>
+                <div class="text-gray-500 text-[10px] font-bold uppercase tracking-widest mb-2">4. Services & Facilities</div>
+                <a href="/view/RentalAgreements" class="block py-1 px-2 text-sm text-gray-400 hover:text-white">Rentals</a>
+                <a href="/view/MaintenanceRequests" class="block py-1 px-2 text-sm text-gray-400 hover:text-white text-orange-300">Maintenance</a>
+                <a href="/view/EquipmentInventory" class="block py-1 px-2 text-sm text-gray-400 hover:text-white">Equipment</a>
+            </div>
+
+            <div>
+                <div class="text-gray-500 text-[10px] font-bold uppercase tracking-widest mb-2">5. Security Audit</div>
+                <a href="/view/AuditLogs" class="block py-1 px-2 text-sm text-gray-400 hover:text-white text-red-400">System Audit Logs</a>
+                <a href="/view/LoginHistory" class="block py-1 px-2 text-sm text-gray-400 hover:text-white">Login History</a>
+            </div>
+        </div>
+
+        <div class="p-4 bg-[#111827] border-t border-gray-700">
+            <a href="/logout" class="block text-center text-red-500 text-xs font-black uppercase hover:text-red-400">Terminate Session</a>
+        </div>
+    </div>
+
+    <div class="flex-1 flex flex-col overflow-hidden">
+        <header class="bg-white p-4 shadow-sm flex justify-between items-center border-b border-gray-200">
+            <span class="text-gray-400 text-xs font-bold uppercase">System Status: <span class="text-green-500">Online</span></span>
+            <span class="bg-blue-100 text-blue-600 text-[10px] px-2 py-1 rounded-full font-bold">Employee ID: #{{ session['user_id'] }}</span>
+        </header>
+        
+        <main class="p-8 overflow-y-auto flex-1">
+            {% with messages = get_flashed_messages() %}
+              {% if messages %}
+                {% for message in messages %}
+                  <div class="bg-blue-600 text-white p-4 rounded-lg mb-6 shadow-lg animate-pulse">{{ message }}</div>
+                {% endfor %}
+              {% endif %}
+            {% endwith %}
+
+            {% block content %}{% endblock %}
+        </main>
+    </div>
+</body>
+</html>

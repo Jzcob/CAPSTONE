@@ -1,0 +1,13 @@
+{% extends 'layout.html' %}
+{% block content %}
+<div class="max-w-md mx-auto bg-white p-8 rounded-lg shadow-md">
+    <h2 class="text-2xl font-bold mb-6">Add New Product</h2>
+    <form action="/inventory/add" method="POST" class="space-y-4">
+        <input type="text" name="name" placeholder="Product Name" required class="w-full p-2 border rounded">
+        <input type="text" name="sku" placeholder="SKU" required class="w-full p-2 border rounded">
+        <input type="number" name="price" placeholder="Unit Price" step="0.01" required class="w-full p-2 border rounded">
+        <input type="number" name="qty" placeholder="Initial Stock" required class="w-full p-2 border rounded">
+        <button type="submit" class="w-full bg-green-600 text-white py-2 rounded font-bold">Save Product</button>
+    </form>
+</div>
+{% endblock %}

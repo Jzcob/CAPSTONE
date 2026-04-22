@@ -1,0 +1,23 @@
+{% extends 'layout.html' %}
+{% block content %}
+<div class="max-w-md mx-auto bg-white p-8 rounded-2xl shadow-xl border border-gray-100">
+    <h2 class="text-2xl font-black text-gray-800 mb-2">Modify Access Levels</h2>
+    <p class="text-sm text-gray-400 mb-6">Updating permissions for Employee ID: #{{ emp_id }}</p>
+    
+    <form action="/admin/edit_user/{{ emp_id }}" method="POST" class="space-y-6">
+        <div>
+            <label class="block text-xs font-bold uppercase text-gray-500 mb-2">Assign New Job Title</label>
+            <select name="job_id" class="w-full p-4 bg-gray-50 border-0 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none">
+                {% for job in jobs %}
+                <option value="{{ job.JobID }}">{{ job.TitleName }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        
+        <button type="submit" class="w-full bg-blue-600 text-white py-4 rounded-xl font-bold shadow-lg hover:bg-blue-700 transition">
+            Save Permissions
+        </button>
+        <a href="/admin/users" class="block text-center text-sm text-gray-500 hover:text-gray-800">Cancel and Return</a>
+    </form>
+</div>
+{% endblock %}

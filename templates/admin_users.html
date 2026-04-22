@@ -1,0 +1,60 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<div class="flex justify-between items-center mb-8">
+    <div>
+        <h1 class="text-4xl font-black text-gray-800 tracking-tight">Staff Management</h1>
+        <p class="text-gray-400 font-medium">Manage employee roles and access levels across the organization.</p>
+    </div>
+</div>
+
+<div class="bg-white shadow-2xl rounded-3xl overflow-hidden border border-gray-100">
+    <table class="min-w-full divide-y divide-gray-200">
+        <thead class="bg-gray-50">
+            <tr>
+                <th class="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase tracking-widest">Employee</th>
+                <th class="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase tracking-widest">Current Role</th>
+                <th class="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase tracking-widest">Assigned Store</th>
+                <th class="px-6 py-4 text-center text-xs font-bold text-gray-500 uppercase tracking-widest">Actions</th>
+            </tr>
+        </thead>
+        <tbody class="bg-white divide-y divide-gray-100">
+            {% for u in users %}
+            <tr class="hover:bg-blue-50 transition-colors">
+                <td class="px-6 py-6 whitespace-nowrap">
+                    <div class="flex items-center">
+                        <div class="h-10 w-10 rounded-full bg-blue-600 flex items-center justify-center text-white font-bold mr-4">
+                            {{ u.FirstName[0] }}{{ u.LastName[0] }}
+                        </div>
+                        <div>
+                            <div class="text-sm font-bold text-gray-900">{{ u.FirstName }} {{ u.LastName }}</div>
+                            <div class="text-xs text-gray-400">ID: #{{ u.EmployeeID }}</div>
+                        </div>
+                    </div>
+                </td>
+                <td class="px-6 py-6 whitespace-nowrap">
+                    <span class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-indigo-100 text-indigo-800 uppercase">
+                        {{ u.TitleName }}
+                    </span>
+                </td>
+                <td class="px-6 py-6 whitespace-nowrap text-sm text-gray-500 font-medium">
+                    {{ u.Store }}
+                </td>
+                <td class="px-6 py-6 whitespace-nowrap text-center text-sm font-medium">
+                    <a href="/admin/edit_user/{{ u.EmployeeID }}" 
+                       class="inline-block bg-blue-600 text-white px-4 py-2 rounded-xl hover:bg-blue-700 shadow-md transition no-underline">
+                        Edit Role & Permissions
+                    </a>
+                </td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="4" class="px-6 py-20 text-center text-gray-400 italic">
+                    No manageable employees found in your jurisdiction.
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
